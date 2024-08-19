@@ -1,4 +1,4 @@
-package com.krisna.diva.movielist.utils
+package com.krisna.diva.movielist.core.utils
 
 object GenreMapper {
 

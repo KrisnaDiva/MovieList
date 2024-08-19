@@ -8,20 +8,14 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
-import androidx.compose.ui.Alignment
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
-import com.krisna.diva.movielist.ViewModelFactory
-import com.krisna.diva.movielist.di.Injection
-import com.krisna.diva.movielist.model.Movie
-import com.krisna.diva.movielist.ui.common.UiState
+import org.koin.androidx.compose.koinViewModel
+import com.krisna.diva.movielist.core.data.source.remote.Resource
+import com.krisna.diva.movielist.core.domain.model.Movie
 import com.krisna.diva.movielist.ui.components.ErrorScreen
 import com.krisna.diva.movielist.ui.components.LoadingScreen
 import com.krisna.diva.movielist.ui.components.MovieItem
@@ -31,17 +25,10 @@ import com.krisna.diva.movielist.ui.components.PopularMovieItem
 @Composable
 fun HomeScreen(
     modifier: Modifier = Modifier,
-    viewModel: HomeViewModel = viewModel(
-        factory = ViewModelFactory(Injection.provideRepository())
-    ),
+    viewModel: HomeViewModel = koinViewModel()
 ) {
-    val popularMoviesState by viewModel.popularMoviesState.collectAsState()
-    val topRatedMoviesState by viewModel.topRatedMoviesState.collectAsState()
-
-    LaunchedEffect(key1 = Unit) {
-        viewModel.getPopularMovies()
-        viewModel.getTopRatedMovies()
-    }
+    val popularMoviesState = viewModel.popularMovies.observeAsState()
+    val topRatedMoviesState = viewModel.topRatedMovies.observeAsState()
 
     Column(
         modifier = modifier.verticalScroll(rememberScrollState())
@@ -49,11 +36,9 @@ fun HomeScreen(
         MovieSection(
             title = "Popular Movies",
             content = {
-                StateHandler(
-                    state = popularMoviesState,
-                    successContent = { movies ->
-                        PopularMovieRow(movies = movies)
-                    }
+                ResourceStateHandler(
+                    state = popularMoviesState.value,
+                    successContent = { movies -> PopularMovieRow(movies = movies) }
                 )
             }
         )
@@ -61,8 +46,8 @@ fun HomeScreen(
         MovieSection(
             title = "Top Rated Movies",
             content = {
-                StateHandler(
-                    state = topRatedMoviesState,
+                ResourceStateHandler(
+                    state = topRatedMoviesState.value,
                     successContent = { movies ->
                         TopMoviesColumn(
                             movies = movies,
@@ -76,18 +61,21 @@ fun HomeScreen(
 }
 
 @Composable
-fun <T> StateHandler(
-    state: UiState<T>,
+fun <T> ResourceStateHandler(
+    state: Resource<T>?,
     loadingContent: @Composable () -> Unit = { LoadingScreen() },
     errorContent: @Composable (String) -> Unit = { ErrorScreen(errorMessage = it) },
     successContent: @Composable (T) -> Unit
 ) {
     when (state) {
-        is UiState.Loading -> loadingContent()
-        is UiState.Error -> errorContent(state.errorMessage)
-        is UiState.Success -> successContent(state.data)
+        is Resource.Loading -> loadingContent()
+        is Resource.Error -> state.message?.let { errorContent(it) }
+        is Resource.Success -> state.data?.let { successContent(it) }
+        else -> {}
     }
 }
+
+
 @Composable
 fun MovieSection(
     title: String,
@@ -106,7 +94,7 @@ fun MovieSection(
 
 @Composable
 fun PopularMovieRow(
-    movies: List<Movie>,
+    movies: List<Movie>?,
     modifier: Modifier = Modifier
 ) {
     LazyRow(
@@ -114,7 +102,7 @@ fun PopularMovieRow(
         contentPadding = PaddingValues(horizontal = 16.dp),
         modifier = modifier
     ) {
-        items(movies) { movie ->
+        items(movies ?: emptyList()) { movie ->
             PopularMovieItem(movie)
         }
     }
@@ -122,7 +110,7 @@ fun PopularMovieRow(
 
 @Composable
 fun TopMoviesColumn(
-    movies: List<Movie>,
+    movies: List<Movie>?,
     modifier: Modifier = Modifier
 ) {
     LazyColumn(
@@ -130,7 +118,7 @@ fun TopMoviesColumn(
         contentPadding = PaddingValues(horizontal = 16.dp),
         modifier = modifier
     ) {
-        items(movies) { movie ->
+        items(movies ?: emptyList()) { movie ->
             MovieItem(movie)
         }
     }

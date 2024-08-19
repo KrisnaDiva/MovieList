@@ -67,14 +67,20 @@ dependencies {
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
 
-    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.8.4")
-
-    // networking
+    //networking
     implementation(libs.squareup.retrofit2)
     implementation(libs.squareup.logging.interceptor)
     implementation(libs.squareup.converter.gson)
 
     //coil
-    implementation("io.coil-kt:coil-compose:2.2.0")
+    implementation(libs.coil.compose)
 
+    //koin
+    implementation(libs.koin.androidx.compose)
+
+    //livedata
+    implementation(libs.androidx.compose.runtime.livedata)
+
+    // viewmodel
+    implementation(libs.lifecycle.viewmodel.compose)
 }

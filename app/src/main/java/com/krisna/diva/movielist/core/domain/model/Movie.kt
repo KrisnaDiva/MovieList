@@ -1,4 +1,4 @@
-package com.krisna.diva.movielist.model
+package com.krisna.diva.movielist.core.domain.model
 
 data class Movie(
     val image: String,

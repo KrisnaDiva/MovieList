@@ -22,7 +22,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
-import com.krisna.diva.movielist.model.Movie
+import com.krisna.diva.movielist.core.domain.model.Movie
 import com.krisna.diva.movielist.ui.theme.MovieListTheme
 
 @Composable
