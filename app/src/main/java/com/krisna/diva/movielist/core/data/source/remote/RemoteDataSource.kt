@@ -2,14 +2,14 @@ package com.krisna.diva.movielist.core.data.source.remote
 
 import com.krisna.diva.movielist.core.data.source.remote.network.ApiResponse
 import com.krisna.diva.movielist.core.data.source.remote.network.ApiService
-import com.krisna.diva.movielist.core.data.source.remote.response.MovieItem
+import com.krisna.diva.movielist.core.data.source.remote.response.MovieItemDto
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 
 class RemoteDataSource (private val apiService: ApiService) {
-    suspend fun getPopularMovies(): Flow<ApiResponse<List<MovieItem>>> {
+    suspend fun getPopularMovies(): Flow<ApiResponse<List<MovieItemDto>>> {
         return flow {
             try {
                 val response = apiService.getPopularMovies()
@@ -27,7 +27,7 @@ class RemoteDataSource (private val apiService: ApiService) {
         }.flowOn(Dispatchers.IO)
     }
 
-    suspend fun getTopRatedMovies(): Flow<ApiResponse<List<MovieItem>>> {
+    suspend fun getTopRatedMovies(): Flow<ApiResponse<List<MovieItemDto>>> {
         return flow {
             try {
                 val response = apiService.getTopRatedMovies()

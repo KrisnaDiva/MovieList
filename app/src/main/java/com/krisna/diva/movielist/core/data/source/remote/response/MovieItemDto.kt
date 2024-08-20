@@ -2,7 +2,7 @@ package com.krisna.diva.movielist.core.data.source.remote.response
 
 import com.google.gson.annotations.SerializedName
 
-data class MovieItem(
+data class MovieItemDto(
 
     @field:SerializedName("title")
     val title: String? = null,

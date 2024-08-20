@@ -8,6 +8,7 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Devices
@@ -15,11 +16,11 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import org.koin.androidx.compose.koinViewModel
 import com.krisna.diva.movielist.core.data.source.remote.Resource
-import com.krisna.diva.movielist.core.domain.model.Movie
 import com.krisna.diva.movielist.ui.components.ErrorScreen
 import com.krisna.diva.movielist.ui.components.LoadingScreen
 import com.krisna.diva.movielist.ui.components.MovieItem
 import com.krisna.diva.movielist.ui.components.PopularMovieItem
+import com.krisna.diva.movielist.ui.model.Movie
 
 @Preview(showBackground = true, device = Devices.PIXEL_6)
 @Composable
@@ -27,8 +28,8 @@ fun HomeScreen(
     modifier: Modifier = Modifier,
     viewModel: HomeViewModel = koinViewModel()
 ) {
-    val popularMoviesState = viewModel.popularMovies.observeAsState()
-    val topRatedMoviesState = viewModel.topRatedMovies.observeAsState()
+    val popularMoviesState by viewModel.popularMovies.observeAsState()
+    val topRatedMoviesState by viewModel.topRatedMovies.observeAsState()
 
     Column(
         modifier = modifier.verticalScroll(rememberScrollState())
@@ -37,7 +38,7 @@ fun HomeScreen(
             title = "Popular Movies",
             content = {
                 ResourceStateHandler(
-                    state = popularMoviesState.value,
+                    state = popularMoviesState,
                     successContent = { movies -> PopularMovieRow(movies = movies) }
                 )
             }
@@ -47,7 +48,7 @@ fun HomeScreen(
             title = "Top Rated Movies",
             content = {
                 ResourceStateHandler(
-                    state = topRatedMoviesState.value,
+                    state = topRatedMoviesState,
                     successContent = { movies ->
                         TopMoviesColumn(
                             movies = movies,
@@ -123,3 +124,4 @@ fun TopMoviesColumn(
         }
     }
 }
+
