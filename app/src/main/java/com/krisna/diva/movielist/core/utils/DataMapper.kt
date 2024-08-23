@@ -1,28 +1,30 @@
 package com.krisna.diva.movielist.core.utils
 
 import com.krisna.diva.movielist.core.data.source.remote.response.MovieItemDto
-import com.krisna.diva.movielist.core.domain.model.Movie
-import com.krisna.diva.movielist.ui.model.Movie
+import com.krisna.diva.movielist.core.domain.model.Movie as DomainMovie
+import com.krisna.diva.movielist.ui.model.Movie as UiMovie
 
 object DataMapper {
-    fun mapResponsesToDomain(input: List<MovieItemDto>): List<Movie> {
+    fun mapResponsesToDomain(input: List<MovieItemDto>): List<DomainMovie> {
         return input.map {
-            Movie(
+            DomainMovie(
                 title = it.title ?: "",
                 image = "https://image.tmdb.org/t/p/w500${it.posterPath}",
                 rating = it.voteAverage ?: 0.0,
-                genres = GenreMapper.mapGenreIdsToNames(it.genreIds)
+                genres = GenreMapper.mapGenreIdsToNames(it.genreIds),
+                overview = it.overview ?: ""
             )
         }
     }
 
-    fun mapDomainToUi(input: List<Movie>): List<com.krisna.diva.movielist.ui.model.Movie> {
+    fun mapDomainToUi(input: List<DomainMovie>): List<UiMovie> {
         return input.map {
-            com.krisna.diva.movielist.ui.model.Movie(
+            UiMovie(
                 title = it.title,
                 image = it.image,
                 rating = it.rating,
-                genres = it.genres
+                genres = it.genres,
+                overview = it.overview
             )
         }
     }

@@ -1,4 +1,4 @@
-package com.krisna.diva.movielist.ui.components
+package com.krisna.diva.movielist.ui.components.display
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize

@@ -1,4 +1,4 @@
-package com.krisna.diva.movielist.ui.components
+package com.krisna.diva.movielist.ui.components.display
 
 import androidx.compose.foundation.layout.Row
 import androidx.compose.material.icons.Icons
@@ -10,13 +10,17 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import com.krisna.diva.movielist.R
 
 @Composable
 fun MovieRating(
     rating: Double,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    textStyle: TextStyle = MaterialTheme.typography.bodySmall.copy(
+        fontWeight = FontWeight.Light,
+    )
 ) {
     Row(
         verticalAlignment = androidx.compose.ui.Alignment.CenterVertically,
@@ -29,9 +33,7 @@ fun MovieRating(
         )
         Text(
             text = stringResource(id = R.string.rating_format, rating),
-            style = MaterialTheme.typography.bodySmall.copy(
-                fontWeight = FontWeight.Light
-            ),
+            style = textStyle
         )
     }
 }

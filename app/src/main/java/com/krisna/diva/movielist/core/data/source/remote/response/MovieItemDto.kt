@@ -15,4 +15,7 @@ data class MovieItemDto(
 
     @field:SerializedName("vote_average")
     val voteAverage: Double? = null,
+
+    @field:SerializedName("overview")
+    val overview: String? = null
 )

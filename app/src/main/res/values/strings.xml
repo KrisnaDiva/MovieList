@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">MovieList</string>
     <string name="rating_format">%1$.1f/10 IMDb</string>
-
+    <string name="home">Home</string>
+    <string name="search">Search</string>
+    <string name="profile">Profile</string>
 </resources>
