@@ -2,7 +2,7 @@ package com.krisna.diva.movielist.ui.components.navigation
 
 import android.net.Uri
 import com.google.gson.Gson
-import com.krisna.diva.movielist.ui.model.Movie
+import com.krisna.diva.movielist.core.domain.model.Movie
 
 sealed class Screen(val route: String) {
     object Home : Screen("home")

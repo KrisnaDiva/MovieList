@@ -4,18 +4,16 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Devices
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.krisna.diva.movielist.core.domain.model.Movie
 import org.koin.androidx.compose.koinViewModel
 import com.krisna.diva.movielist.ui.components.layout.MovieSection
 import com.krisna.diva.movielist.ui.components.layout.PopularMovieRow
 import com.krisna.diva.movielist.ui.components.util.ResourceStateHandler
 import com.krisna.diva.movielist.ui.components.layout.TopMovieColumn
-import com.krisna.diva.movielist.ui.model.Movie
 
 @Composable
 fun HomeScreen(
@@ -23,8 +21,8 @@ fun HomeScreen(
     viewModel: HomeViewModel = koinViewModel(),
     navigateToDetail: (Movie) -> Unit,
 ) {
-    val popularMoviesState by viewModel.getPopularMovies().observeAsState()
-    val topRatedMoviesState by viewModel.getTopRatedMovies().observeAsState()
+    val popularMoviesState by viewModel.popularMoviesState.collectAsState()
+    val topRatedMoviesState by viewModel.topRatedMoviesState.collectAsState()
 
     Column(
         modifier = modifier.verticalScroll(rememberScrollState())
@@ -54,7 +52,7 @@ fun HomeScreen(
                             movies = movies,
                             modifier = Modifier.height(400.dp),
                             navigateToDetail = navigateToDetail,
-                            )
+                        )
                     }
                 )
             }

@@ -17,7 +17,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
-import com.krisna.diva.movielist.ui.model.Movie
+import com.krisna.diva.movielist.core.domain.model.Movie
 import com.krisna.diva.movielist.ui.theme.MovieListTheme
 
 @Composable
@@ -54,21 +54,5 @@ fun PopularMovieItem(
                 modifier = Modifier.offset(x = (-4).dp)
             )
         }
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-private fun PopularMovieItemPreview() {
-    MovieListTheme {
-//        LazyRow {
-//            item {
-//                PopularMovieItem(
-//                    image = R.drawable.fastx,
-//                    title = "Fast & Furious 9",
-//                    rating = 2.3
-//                )
-//            }
-//        }
     }
 }

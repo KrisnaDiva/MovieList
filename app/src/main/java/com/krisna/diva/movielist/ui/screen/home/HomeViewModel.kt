@@ -1,36 +1,40 @@
 package com.krisna.diva.movielist.ui.screen.home
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.asLiveData
+import androidx.lifecycle.viewModelScope
 import com.krisna.diva.movielist.core.data.source.remote.Resource
+import com.krisna.diva.movielist.core.domain.model.Movie
 import com.krisna.diva.movielist.core.domain.usecase.MovieUseCase
-import com.krisna.diva.movielist.core.utils.DataMapper
-import com.krisna.diva.movielist.ui.model.Movie
-import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.launch
 
 class HomeViewModel(private val movieUseCase: MovieUseCase) : ViewModel() {
-    fun getPopularMovies(): LiveData<Resource<List<Movie>?>> {
-        return movieUseCase.getPopularMovies()
-            .map { resource ->
-                when (resource) {
-                    is Resource.Success -> Resource.Success(resource.data?.let { DataMapper.mapDomainToUi(it) })
-                    is Resource.Error -> Resource.Error(resource.message ?: "Error")
-                    is Resource.Loading -> Resource.Loading()
-                }
-            }
-            .asLiveData()
+
+    private val _popularMoviesState = MutableStateFlow<Resource<List<Movie>>>(Resource.Loading())
+    val popularMoviesState: StateFlow<Resource<List<Movie>>> = _popularMoviesState
+
+    private val _topRatedMoviesState = MutableStateFlow<Resource<List<Movie>>>(Resource.Loading())
+    val topRatedMoviesState: StateFlow<Resource<List<Movie>>> = _topRatedMoviesState
+
+    init {
+        fetchPopularMovies()
+        fetchTopRatedMovies()
     }
 
-    fun getTopRatedMovies(): LiveData<Resource<List<Movie>?>> {
-        return movieUseCase.getTopRatedMovies()
-            .map { resource ->
-                when (resource) {
-                    is Resource.Success -> Resource.Success(resource.data?.let { DataMapper.mapDomainToUi(it) })
-                    is Resource.Error -> Resource.Error(resource.message ?: "Error")
-                    is Resource.Loading -> Resource.Loading()
-                }
+    private fun fetchPopularMovies() {
+        viewModelScope.launch {
+            movieUseCase.getPopularMovies().collect { resource ->
+                _popularMoviesState.value = resource
             }
-            .asLiveData()
+        }
+    }
+
+    private fun fetchTopRatedMovies() {
+        viewModelScope.launch {
+            movieUseCase.getTopRatedMovies().collect { resource ->
+                _topRatedMoviesState.value = resource
+            }
+        }
     }
 }

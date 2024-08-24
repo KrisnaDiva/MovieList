@@ -1,4 +1,4 @@
-package com.krisna.diva.movielist.ui.screen
+package com.krisna.diva.movielist.ui
 
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
@@ -24,9 +24,9 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.google.gson.Gson
 import com.krisna.diva.movielist.R
+import com.krisna.diva.movielist.core.domain.model.Movie
 import com.krisna.diva.movielist.ui.components.navigation.NavigationItem
 import com.krisna.diva.movielist.ui.components.navigation.Screen
-import com.krisna.diva.movielist.ui.model.Movie
 import com.krisna.diva.movielist.ui.screen.detail.DetailScreen
 import com.krisna.diva.movielist.ui.screen.home.HomeScreen
 

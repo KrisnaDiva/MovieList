@@ -40,7 +40,7 @@ android {
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.1"
+        kotlinCompilerExtensionVersion = "1.5.13"
     }
     packaging {
         resources {
@@ -78,12 +78,9 @@ dependencies {
     //koin
     implementation(libs.koin.androidx.compose)
 
-    //livedata
-    implementation(libs.androidx.compose.runtime.livedata)
-
     // viewmodel
     implementation(libs.lifecycle.viewmodel.compose)
 
-    implementation("androidx.navigation:navigation-compose:2.5.3")
+    implementation(libs.androidx.navigation.compose)
 
 }
