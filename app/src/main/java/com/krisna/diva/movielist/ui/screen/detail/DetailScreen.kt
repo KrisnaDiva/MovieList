@@ -1,5 +1,6 @@
 package com.krisna.diva.movielist.ui.screen.detail
 
+import android.widget.Toast
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -11,6 +12,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.FavoriteBorder
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -22,10 +24,15 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
@@ -33,6 +40,7 @@ import coil.compose.AsyncImage
 import com.krisna.diva.movielist.core.domain.model.Movie
 import com.krisna.diva.movielist.ui.components.MovieRating
 import com.krisna.diva.movielist.ui.components.MovieGenreList
+import org.koin.androidx.compose.koinViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -40,7 +48,16 @@ fun DetailScreen(
     modifier: Modifier = Modifier,
     movie: Movie,
     navigateBack: () -> Unit,
+    viewModel: DetailViewModel = koinViewModel()
 ) {
+
+    val isFavorite by viewModel.isFavorite.collectAsState()
+    val context = LocalContext.current
+
+    LaunchedEffect(movie.id) {
+        viewModel.checkFavoriteStatus(movie.id)
+    }
+
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior(rememberTopAppBarState())
 
     Scaffold(
@@ -56,22 +73,25 @@ fun DetailScreen(
                     )
                 },
                 navigationIcon = {
-                    IconButton(
-                        onClick = {
-                            navigateBack()
-                        }
-                    ) {
+                    IconButton(onClick = navigateBack) {
                         Icon(
                             imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                            contentDescription = "Localized description"
+                            contentDescription = "Back"
                         )
                     }
                 },
                 actions = {
-                    IconButton(onClick = { /* Handle favorite action */ }) {
+                    IconButton(
+                        onClick = {
+                            viewModel.toggleFavorite(movie)
+                            val message = if (isFavorite) "Removed from favorites" else "Added to favorites"
+                            Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
+                        }
+                    ) {
                         Icon(
-                            imageVector = Icons.Filled.FavoriteBorder,
-                            contentDescription = "Localized description"
+                            imageVector = if (isFavorite) Icons.Filled.Favorite else Icons.Filled.FavoriteBorder,
+                            contentDescription = if (isFavorite) "Remove from favorites" else "Add to favorites",
+                            tint = if (isFavorite) Color.Red else Color.Black
                         )
                     }
                 },

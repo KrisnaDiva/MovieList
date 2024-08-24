@@ -1,14 +1,29 @@
 package com.krisna.diva.movielist.core.di
 
+import androidx.room.Room
+import com.krisna.diva.movielist.core.data.source.local.LocalDataSource
+import com.krisna.diva.movielist.core.data.source.local.room.MovieDatabase
 import com.krisna.diva.movielist.core.data.source.remote.MovieRepository
 import com.krisna.diva.movielist.core.data.source.remote.RemoteDataSource
 import com.krisna.diva.movielist.core.data.source.remote.network.ApiService
 import com.krisna.diva.movielist.core.domain.repository.IMovieRepository
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
+import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+
+val databaseModule = module {
+    factory { get<MovieDatabase>().movieDao() }
+    single {
+        Room.databaseBuilder(
+            androidContext(),
+            MovieDatabase::class.java, "favorite_movie.db"
+        ).fallbackToDestructiveMigration().build()
+    }
+}
+
 
 val networkModule = module {
     single {
@@ -43,5 +58,6 @@ val networkModule = module {
 
 val repositoryModule = module {
     single { RemoteDataSource(get()) }
-    single<IMovieRepository> { MovieRepository(get()) }
+    single { LocalDataSource(get()) }
+    single<IMovieRepository> { MovieRepository(get(), get()) }
 }

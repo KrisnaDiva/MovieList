@@ -1,6 +1,7 @@
 package com.krisna.diva.movielist
 
 import android.app.Application
+import com.krisna.diva.movielist.core.di.databaseModule
 import com.krisna.diva.movielist.core.di.networkModule
 import com.krisna.diva.movielist.core.di.repositoryModule
 import com.krisna.diva.movielist.di.useCaseModule
@@ -18,6 +19,7 @@ class MyApplication : Application() {
             androidContext(this@MyApplication)
             modules(
                 listOf(
+                    databaseModule,
                     networkModule,
                     repositoryModule,
                     useCaseModule,

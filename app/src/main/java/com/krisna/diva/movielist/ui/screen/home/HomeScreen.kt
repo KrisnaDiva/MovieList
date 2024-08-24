@@ -13,7 +13,7 @@ import org.koin.androidx.compose.koinViewModel
 import com.krisna.diva.movielist.ui.components.MovieSection
 import com.krisna.diva.movielist.ui.components.PopularMovieList
 import com.krisna.diva.movielist.ui.components.ResourceStateHandler
-import com.krisna.diva.movielist.ui.components.TopMovieList
+import com.krisna.diva.movielist.ui.components.MovieList
 
 @Composable
 fun HomeScreen(
@@ -48,7 +48,7 @@ fun HomeScreen(
                 ResourceStateHandler(
                     state = topRatedMoviesState,
                     successContent = { movies ->
-                        TopMovieList(
+                        MovieList(
                             movies = movies,
                             modifier = Modifier.height(400.dp),
                             navigateToDetail = navigateToDetail,

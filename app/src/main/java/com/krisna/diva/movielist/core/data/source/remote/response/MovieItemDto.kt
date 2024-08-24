@@ -4,17 +4,20 @@ import com.google.gson.annotations.SerializedName
 
 data class MovieItemDto(
 
+    @field:SerializedName("id")
+    val id: Int? = null,
+
     @field:SerializedName("title")
     val title: String? = null,
 
     @field:SerializedName("genre_ids")
-    val genreIds: List<Int>? = null,
+    val genres: List<Int>? = null,
 
     @field:SerializedName("poster_path")
-    val posterPath: String? = null,
+    val image: String? = null,
 
     @field:SerializedName("vote_average")
-    val voteAverage: Double? = null,
+    val rating: Double? = null,
 
     @field:SerializedName("overview")
     val overview: String? = null

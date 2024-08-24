@@ -6,7 +6,7 @@ import com.krisna.diva.movielist.core.domain.model.Movie
 
 sealed class Screen(val route: String) {
     object Home : Screen("home")
-    object Search : Screen("search")
+    object Favorite : Screen("favorite")
     object Profile : Screen("profile")
     object DetailMovie : Screen("home/{movie}") {
         fun createRoute(movie: Movie): String {

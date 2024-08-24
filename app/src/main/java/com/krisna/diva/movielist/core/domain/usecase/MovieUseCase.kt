@@ -8,4 +8,12 @@ interface MovieUseCase {
     fun getPopularMovies(): Flow<Resource<List<Movie>>>
 
     fun getTopRatedMovies(): Flow<Resource<List<Movie>>>
+
+    suspend fun setFavoriteMovie(movie: Movie)
+
+    suspend fun removeFavoriteMovie(id: Int)
+
+    suspend fun isMovieFavorite(id: Int): Boolean
+
+    fun getFavoriteMovies(): Flow<List<Movie>>
 }

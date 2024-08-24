@@ -11,22 +11,18 @@ import androidx.compose.ui.unit.dp
 import com.krisna.diva.movielist.core.domain.model.Movie
 
 @Composable
-fun TopMovieList(
-    movies: List<Movie>?,
+fun FavoriteMovieList(
+    movies: List<Movie>,
     modifier: Modifier = Modifier,
-    navigateToDetail: (Movie) -> Unit,
 ) {
     LazyColumn(
         verticalArrangement = Arrangement.spacedBy(16.dp),
         contentPadding = PaddingValues(horizontal = 16.dp),
         modifier = modifier
     ) {
-        items(movies ?: emptyList()) { movie ->
+        items(movies) { movie ->
             MovieItem(
                 movie = movie,
-                modifier = Modifier.clickable {
-                    navigateToDetail(movie)
-                }
             )
         }
     }

@@ -3,6 +3,7 @@ package com.krisna.diva.movielist.ui
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountCircle
+import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.Icon
@@ -28,6 +29,7 @@ import com.krisna.diva.movielist.core.domain.model.Movie
 import com.krisna.diva.movielist.ui.navigation.NavigationItem
 import com.krisna.diva.movielist.ui.navigation.Screen
 import com.krisna.diva.movielist.ui.screen.detail.DetailScreen
+import com.krisna.diva.movielist.ui.screen.favorite.FavoriteScreen
 import com.krisna.diva.movielist.ui.screen.home.HomeScreen
 import com.krisna.diva.movielist.ui.screen.profile.ProfileScreen
 
@@ -60,8 +62,12 @@ fun MovieApp(
                     }
                 )
             }
-            composable(Screen.Search.route) {
-//                SearchScreen()
+            composable(Screen.Favorite.route) {
+                FavoriteScreen(
+                    navigateToDetail = { movie ->
+                        navController.navigate(Screen.DetailMovie.createRoute(movie))
+                    }
+                )
             }
             composable(Screen.Profile.route) {
                 ProfileScreen()
@@ -79,8 +85,7 @@ fun MovieApp(
                     navigateBack = {
                         navController.navigateUp()
                     },
-
-                    )
+                )
             }
         }
     }
@@ -104,9 +109,9 @@ private fun BottomBar(
                 screen = Screen.Home
             ),
             NavigationItem(
-                title = stringResource(R.string.search),
-                icon = Icons.Default.Search,
-                screen = Screen.Search
+                title = stringResource(R.string.favorite),
+                icon = Icons.Default.Favorite,
+                screen = Screen.Favorite
             ),
             NavigationItem(
                 title = stringResource(R.string.profile),
