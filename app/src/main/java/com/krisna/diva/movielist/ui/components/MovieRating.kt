@@ -1,4 +1,4 @@
-package com.krisna.diva.movielist.ui.components.display
+package com.krisna.diva.movielist.ui.components
 
 import androidx.compose.foundation.layout.Row
 import androidx.compose.material.icons.Icons

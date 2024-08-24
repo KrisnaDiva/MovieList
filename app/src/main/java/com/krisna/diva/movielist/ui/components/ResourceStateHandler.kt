@@ -1,9 +1,7 @@
-package com.krisna.diva.movielist.ui.components.util
+package com.krisna.diva.movielist.ui.components
 
 import androidx.compose.runtime.Composable
 import com.krisna.diva.movielist.core.data.source.remote.Resource
-import com.krisna.diva.movielist.ui.components.display.ErrorScreen
-import com.krisna.diva.movielist.ui.components.display.LoadingScreen
 
 @Composable
 fun <T> ResourceStateHandler(

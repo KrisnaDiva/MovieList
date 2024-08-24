@@ -1,4 +1,4 @@
-package com.krisna.diva.movielist.ui.components.display
+package com.krisna.diva.movielist.ui.components
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.offset
@@ -14,11 +14,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.krisna.diva.movielist.core.domain.model.Movie
-import com.krisna.diva.movielist.ui.theme.MovieListTheme
 
 @Composable
 fun PopularMovieItem(

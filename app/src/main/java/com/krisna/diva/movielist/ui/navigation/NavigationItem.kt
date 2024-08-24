@@ -1,4 +1,4 @@
-package com.krisna.diva.movielist.ui.components.navigation
+package com.krisna.diva.movielist.ui.navigation
 
 import androidx.compose.ui.graphics.vector.ImageVector
 

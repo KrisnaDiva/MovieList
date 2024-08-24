@@ -6,8 +6,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.LazyRow
-import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
@@ -33,8 +31,8 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.krisna.diva.movielist.core.domain.model.Movie
-import com.krisna.diva.movielist.ui.components.display.MovieGenre
-import com.krisna.diva.movielist.ui.components.display.MovieRating
+import com.krisna.diva.movielist.ui.components.MovieRating
+import com.krisna.diva.movielist.ui.components.MovieGenreList
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -119,17 +117,11 @@ fun DetailScreen(
 
             Spacer(modifier = Modifier.height(8.dp))
 
-            LazyRow {
-                items(movie.genres) { genre ->
-                    MovieGenre(
-                        genre = genre,
-                        textStyle = MaterialTheme.typography.bodyMedium.copy(
-                            fontWeight = FontWeight.Light,
-                            color = MaterialTheme.colorScheme.onPrimary
-                        )
-                    )
-                }
-            }
+
+            MovieGenreList(
+                genres = movie.genres,
+                textStyle = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.Light),
+            )
 
             Spacer(modifier = Modifier.height(16.dp))
 

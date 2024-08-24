@@ -1,4 +1,4 @@
-package com.krisna.diva.movielist.ui.components.navigation
+package com.krisna.diva.movielist.ui.navigation
 
 import android.net.Uri
 import com.google.gson.Gson

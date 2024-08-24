@@ -10,10 +10,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.krisna.diva.movielist.core.domain.model.Movie
 import org.koin.androidx.compose.koinViewModel
-import com.krisna.diva.movielist.ui.components.layout.MovieSection
-import com.krisna.diva.movielist.ui.components.layout.PopularMovieRow
-import com.krisna.diva.movielist.ui.components.util.ResourceStateHandler
-import com.krisna.diva.movielist.ui.components.layout.TopMovieColumn
+import com.krisna.diva.movielist.ui.components.MovieSection
+import com.krisna.diva.movielist.ui.components.PopularMovieList
+import com.krisna.diva.movielist.ui.components.ResourceStateHandler
+import com.krisna.diva.movielist.ui.components.TopMovieList
 
 @Composable
 fun HomeScreen(
@@ -33,7 +33,7 @@ fun HomeScreen(
                 ResourceStateHandler(
                     state = popularMoviesState,
                     successContent = { movies ->
-                        PopularMovieRow(
+                        PopularMovieList(
                             movies = movies,
                             navigateToDetail = navigateToDetail,
                         )
@@ -48,7 +48,7 @@ fun HomeScreen(
                 ResourceStateHandler(
                     state = topRatedMoviesState,
                     successContent = { movies ->
-                        TopMovieColumn(
+                        TopMovieList(
                             movies = movies,
                             modifier = Modifier.height(400.dp),
                             navigateToDetail = navigateToDetail,

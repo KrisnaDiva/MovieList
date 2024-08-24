@@ -25,10 +25,11 @@ import androidx.navigation.navArgument
 import com.google.gson.Gson
 import com.krisna.diva.movielist.R
 import com.krisna.diva.movielist.core.domain.model.Movie
-import com.krisna.diva.movielist.ui.components.navigation.NavigationItem
-import com.krisna.diva.movielist.ui.components.navigation.Screen
+import com.krisna.diva.movielist.ui.navigation.NavigationItem
+import com.krisna.diva.movielist.ui.navigation.Screen
 import com.krisna.diva.movielist.ui.screen.detail.DetailScreen
 import com.krisna.diva.movielist.ui.screen.home.HomeScreen
+import com.krisna.diva.movielist.ui.screen.profile.ProfileScreen
 
 
 @Composable
@@ -36,9 +37,14 @@ fun MovieApp(
     modifier: Modifier = Modifier,
     navController: NavHostController = rememberNavController(),
 ) {
+    val navBackStackEntry by navController.currentBackStackEntryAsState()
+    val currentRoute = navBackStackEntry?.destination?.route
+
     Scaffold(
         bottomBar = {
-            BottomBar(navController)
+            if (currentRoute != Screen.DetailMovie.route) {
+                BottomBar(navController)
+            }
         },
         modifier = modifier
     ) { innerPadding ->
@@ -55,10 +61,10 @@ fun MovieApp(
                 )
             }
             composable(Screen.Search.route) {
-//                CartScreen()
+//                SearchScreen()
             }
             composable(Screen.Profile.route) {
-//                ProfileScreen()
+                ProfileScreen()
             }
 
             composable(
@@ -74,7 +80,7 @@ fun MovieApp(
                         navController.navigateUp()
                     },
 
-                )
+                    )
             }
         }
     }

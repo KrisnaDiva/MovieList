@@ -1,4 +1,4 @@
-package com.krisna.diva.movielist.ui.components.layout
+package com.krisna.diva.movielist.ui.components
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
