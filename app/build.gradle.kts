@@ -9,6 +9,9 @@ android {
     namespace = "com.krisna.diva.movielist"
     compileSdk = 34
 
+    buildFeatures {
+        buildConfig = true
+    }
     defaultConfig {
         applicationId = "com.krisna.diva.movielist"
         minSdk = 24
@@ -20,6 +23,9 @@ android {
         vectorDrawables {
             useSupportLibrary = true
         }
+
+        buildConfigField("String", "BASE_URL", "\"https://api.themoviedb.org/3/\"")
+        buildConfigField("String", "API_KEY", "\"Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIxMDU5ZjFkYzUzNTM2NjkzMTExYzAxN2Q1N2I5MmMwMyIsIm5iZiI6MTcyMzk4NTI1My44OTQwMTUsInN1YiI6IjY2YWI0YTAxOGJlYjdjZGQxZDY4NjA4MiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.Hc4_ecZLPFjMYJdeiyUEGm3WQ1iU0CgRDxGat1nC6Fs\"")
     }
 
     buildTypes {
@@ -83,8 +89,10 @@ dependencies {
     // viewmodel
     implementation(libs.lifecycle.viewmodel.compose)
 
+    // navigation
     implementation(libs.androidx.navigation.compose)
 
+    // room
     implementation(libs.androidx.room.runtime)
     ksp(libs.androidx.room.compiler)
     implementation(libs.androidx.room.ktx)

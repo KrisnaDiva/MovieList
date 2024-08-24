@@ -23,7 +23,7 @@ fun ProfileScreen(
     modifier: Modifier = Modifier,
     name: Int = R.string.name,
     email: Int = R.string.email,
-    imageResId: Int = R.drawable.krisna,
+    image: Int = R.drawable.krisna,
 ) {    Column(
         modifier = modifier
             .fillMaxSize()
@@ -32,7 +32,7 @@ fun ProfileScreen(
         verticalArrangement = Arrangement.Center
     ) {
         Image(
-            painter = painterResource(id = R.drawable.krisna),
+            painter = painterResource(id = image),
             contentDescription = null,
             modifier = Modifier
                 .size(120.dp)

@@ -15,16 +15,18 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
+import com.krisna.diva.movielist.R
 import com.krisna.diva.movielist.core.domain.model.Movie
 
 @Composable
 fun MovieItem(
+    modifier: Modifier = Modifier,
     movie: Movie,
-    modifier: Modifier = Modifier
 ) {
     Card(
         modifier = modifier.height(120.dp),
@@ -35,7 +37,7 @@ fun MovieItem(
         Row {
             AsyncImage(
                 model = movie.image,
-                contentDescription = null,
+                contentDescription = stringResource(id = R.string.movie_image_desc),
                 modifier = Modifier
                     .fillMaxHeight()
                     .padding(end = 8.dp)
@@ -63,7 +65,6 @@ fun MovieItem(
                         .offset(x = (-3).dp)
 
                 )
-
 
                 MovieGenreList(genres = movie.genres, modifier = Modifier.padding(top = 6.dp))
             }

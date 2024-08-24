@@ -7,6 +7,7 @@ import androidx.compose.ui.Modifier
 import com.krisna.diva.movielist.core.domain.model.Movie
 import com.krisna.diva.movielist.ui.components.MovieSection
 import com.krisna.diva.movielist.ui.components.MovieList
+import com.krisna.diva.movielist.ui.components.ResourceStateHandler
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
@@ -21,9 +22,14 @@ fun FavoriteScreen(
         modifier = modifier,
         title = "Favorite Movies",
         content = {
-            MovieList(
-                movies = favoriteMovies,
-                navigateToDetail = navigateToDetail,
+            ResourceStateHandler(
+                state = favoriteMovies,
+                successContent = { movies ->
+                    MovieList(
+                        movies = movies,
+                        navigateToDetail = navigateToDetail,
+                    )
+                }
             )
         }
     )

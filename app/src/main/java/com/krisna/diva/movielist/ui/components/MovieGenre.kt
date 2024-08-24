@@ -15,8 +15,8 @@ import androidx.compose.ui.unit.dp
 
 @Composable
 fun MovieGenre(
-    genre: String,
     modifier: Modifier = Modifier,
+    genre: String,
     textStyle: TextStyle = MaterialTheme.typography.bodySmall.copy(fontWeight = FontWeight.Light),
     backgroundColor: Color = MaterialTheme.colorScheme.primary,
     contentColor: Color = MaterialTheme.colorScheme.onPrimary

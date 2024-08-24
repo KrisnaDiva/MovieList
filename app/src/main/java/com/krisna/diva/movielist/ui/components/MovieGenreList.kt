@@ -10,8 +10,8 @@ import androidx.compose.ui.text.TextStyle
 
 @Composable
 fun MovieGenreList(
-    genres: List<String>,
     modifier: Modifier = Modifier,
+    genres: List<String>,
     textStyle: TextStyle = MaterialTheme.typography.bodySmall,
     backgroundColor: Color = MaterialTheme.colorScheme.primary,
     contentColor: Color = MaterialTheme.colorScheme.onPrimary

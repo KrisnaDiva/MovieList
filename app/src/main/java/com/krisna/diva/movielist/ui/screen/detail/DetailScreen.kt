@@ -33,10 +33,12 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
+import com.krisna.diva.movielist.R
 import com.krisna.diva.movielist.core.domain.model.Movie
 import com.krisna.diva.movielist.ui.components.MovieRating
 import com.krisna.diva.movielist.ui.components.MovieGenreList
@@ -67,7 +69,7 @@ fun DetailScreen(
                 colors = TopAppBarDefaults.centerAlignedTopAppBarColors(),
                 title = {
                     Text(
-                        "Detail",
+                        stringResource(id = R.string.detail),
                         maxLines = 1,
                         overflow = TextOverflow.Ellipsis,
                     )
@@ -76,7 +78,7 @@ fun DetailScreen(
                     IconButton(onClick = navigateBack) {
                         Icon(
                             imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                            contentDescription = "Back"
+                            contentDescription = stringResource(id = R.string.back_icon_desc)
                         )
                     }
                 },
@@ -84,13 +86,14 @@ fun DetailScreen(
                     IconButton(
                         onClick = {
                             viewModel.toggleFavorite(movie)
-                            val message = if (isFavorite) "Removed from favorites" else "Added to favorites"
-                            Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
+                            val message = if (isFavorite) R.string.removed_from_favorites else R.string.added_to_favorites
+                            Toast.makeText(context, context.getString(message), Toast.LENGTH_SHORT).show()
                         }
                     ) {
                         Icon(
                             imageVector = if (isFavorite) Icons.Filled.Favorite else Icons.Filled.FavoriteBorder,
-                            contentDescription = if (isFavorite) "Remove from favorites" else "Add to favorites",
+                            contentDescription = if (isFavorite) stringResource(id = R.string.removed_from_favorites)
+                            else stringResource(id = R.string.added_to_favorites),
                             tint = if (isFavorite) Color.Red else Color.Black
                         )
                     }

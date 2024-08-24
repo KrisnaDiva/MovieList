@@ -12,16 +12,18 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
+import com.krisna.diva.movielist.R
 import com.krisna.diva.movielist.core.domain.model.Movie
 
 @Composable
 fun PopularMovieItem(
-    movie: Movie,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    movie: Movie
 ) {
     Card(
         modifier = modifier.width(140.dp),
@@ -32,7 +34,7 @@ fun PopularMovieItem(
         Column {
             AsyncImage(
                 model = movie.image,
-                contentDescription = null,
+                contentDescription = stringResource(id = R.string.movie_image_desc),
                 modifier = Modifier
                     .clip(RoundedCornerShape(10.dp))
             )

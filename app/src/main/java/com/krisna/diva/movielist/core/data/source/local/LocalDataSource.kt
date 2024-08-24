@@ -11,6 +11,6 @@ class LocalDataSource(private val movieDao: MovieDao) {
     suspend fun deleteFavoriteMovie(id: Int) = movieDao.deleteFavoriteMovie(id)
 
     suspend fun isMovieFavorite(id: Int): Boolean = movieDao.isMovieFavorite(id)
-    //Fungsi ini tidak ditandai sebagai suspend karena mengembalikan Flow. Flow sendiri sudah bersifat asynchronous dan dapat digunakan dalam konteks coroutine tanpa perlu ditandai sebagai suspend.
+
     fun getFavoriteMovies(): Flow<List<MovieEntity>> = movieDao.getAllFavoriteMovie()
 }

@@ -16,8 +16,8 @@ import com.krisna.diva.movielist.R
 
 @Composable
 fun MovieRating(
-    rating: Double,
     modifier: Modifier = Modifier,
+    rating: Double,
     textStyle: TextStyle = MaterialTheme.typography.bodySmall.copy(
         fontWeight = FontWeight.Light,
     )
@@ -28,7 +28,7 @@ fun MovieRating(
     ) {
         Icon(
             imageVector = Icons.Rounded.Star,
-            contentDescription = null,
+            contentDescription = stringResource(id = R.string.star_icon_desc),
             tint = Color(0xFFFFD700),
         )
         Text(

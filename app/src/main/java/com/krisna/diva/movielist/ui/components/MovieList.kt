@@ -12,8 +12,8 @@ import com.krisna.diva.movielist.core.domain.model.Movie
 
 @Composable
 fun MovieList(
-    movies: List<Movie>,
     modifier: Modifier = Modifier,
+    movies: List<Movie>,
     navigateToDetail: (Movie) -> Unit,
 ) {
     LazyColumn(

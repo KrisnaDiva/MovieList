@@ -1,6 +1,7 @@
 package com.krisna.diva.movielist.core.di
 
 import androidx.room.Room
+import com.krisna.diva.movielist.BuildConfig
 import com.krisna.diva.movielist.core.data.source.local.LocalDataSource
 import com.krisna.diva.movielist.core.data.source.local.room.MovieDatabase
 import com.krisna.diva.movielist.core.data.source.remote.MovieRepository
@@ -34,21 +35,21 @@ val networkModule = module {
                     .header("accept", "application/json")
                     .header(
                         "Authorization",
-                        "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIxMDU5ZjFkYzUzNTM2NjkzMTExYzAxN2Q1N2I5MmMwMyIsIm5iZiI6MTcyMzk4NTI1My44OTQwMTUsInN1YiI6IjY2YWI0YTAxOGJlYjdjZGQxZDY4NjA4MiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.Hc4_ecZLPFjMYJdeiyUEGm3WQ1iU0CgRDxGat1nC6Fs"
+                        BuildConfig.API_KEY
                     )
                     .method(original.method, original.body)
                     .build()
                 chain.proceed(request)
             }
             .addInterceptor(HttpLoggingInterceptor().apply {
-                level = HttpLoggingInterceptor.Level.BODY
+                level = if (BuildConfig.DEBUG) HttpLoggingInterceptor.Level.BODY else HttpLoggingInterceptor.Level.NONE
             })
             .build()
     }
 
     single {
         Retrofit.Builder()
-            .baseUrl("https://api.themoviedb.org/3/")
+            .baseUrl(BuildConfig.BASE_URL)
             .client(get<OkHttpClient>())
             .addConverterFactory(GsonConverterFactory.create())
             .build()

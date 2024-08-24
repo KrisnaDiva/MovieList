@@ -10,8 +10,8 @@ import androidx.compose.ui.unit.dp
 
 @Composable
 fun MovieSection(
-    title: String,
     modifier: Modifier = Modifier,
+    title: String,
     content: @Composable () -> Unit
 ) {
     Column(modifier = modifier) {

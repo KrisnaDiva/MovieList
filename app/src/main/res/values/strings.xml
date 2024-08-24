@@ -2,9 +2,15 @@
     <string name="app_name">MovieList</string>
     <string name="rating_format">%1$.1f/10 IMDb</string>
     <string name="home">Home</string>
-    <string name="search">Search</string>
     <string name="favorite">Favorite</string>
     <string name="profile">Profile</string>
     <string name="name">Krisna Diva</string>
     <string name="email">krisnadiva0412@gmail.com</string>
+    <string name="no_content">No Content</string>
+    <string name="movie_image_desc">Movie Image</string>
+    <string name="star_icon_desc">Star Icon</string>
+    <string name="back_icon_desc">Back Icon</string>
+    <string name="detail">Detail</string>
+    <string name="removed_from_favorites">Removed from favorites</string>
+    <string name="added_to_favorites">Added to favorites</string>
 </resources>
